@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'game'
+    'game.apps.GameConfig'
 ]
 
 MIDDLEWARE = [
@@ -77,8 +77,11 @@ WSGI_APPLICATION = 'Channel_Trivia.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Channel Trivia',
+        'USER': 'postgres',
+        'PASSWORD': '720521',
+        'HOST': 'localhost'
     }
 }
 
