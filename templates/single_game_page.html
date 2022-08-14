@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+{#{% for question in questions %}#}
+{#    <h3>{{ question.index }}</h3>#}
+{#    <h3>{{ question.type }}</h3>#}
+{#    <h3>{{ question.category }}</h3>#}
+{#    <h3>{{ question.question }}</h3>#}
+{#    <h3>{{ question.correct_answer }}</h3>#}
+{#{% endfor %}#}
+
+{% for question in questions %}
+    <form action="" method="post" id={{ question.index }}>
+    {% csrf_token %}
+    <label>{{ question.question }}{{ question.index }}</label><br>
+    <input type="text" name='{{ question.index }}' placeholder="Type your answer here"><br>
+    <button type="button" onclick="clicked()">Submit</button>
+    </form>
+{% endfor %}
+    <button id="submit" onclick="submitForms()">Submit forms</button>
+<script>
+        var timer;
+        var a ='{{ length }}';
+        for (var i = 0; i < a; i++)
+            document.getElementById(i.toString()).style.display='none';
+        var index = 0;
+        var x;
+        clearInterval(x);
+        document.getElementById(index.toString()).style.display='block';
+        index ++;
+        x = setInterval(display, 2000);
+
+        function display(){
+            document.getElementById(index.toString()).style.display='block';
+            if (index>0){
+                document.getElementById((index-1).toString()).style.display='none';
+            }
+            if (index < a){
+                index ++;
+            }
+            else{
+                clearInterval(x);
+            }
+
+        }
+        function clicked(){
+            clearInterval(x);
+            document.getElementById((index-1).toString()).style.display='none';
+            document.getElementById(index.toString()).style.display='block';
+            if (index < a-1){
+                index ++;
+            }
+            x = setInterval(display, 2000);
+        }
+        var j
+        submitForms = function(){
+            {#document.getElementById('0').submit();#}
+            {#document.getElementById('1').submit();#}
+            {#document.getElementById('2').submit();#}
+            {#document.getElementById('3').submit();#}
+            {#document.getElementById('4').submit();#}
+
+            for (j = 0; j < 10; j++) {
+                document.getElementById(j.toString()).style.display = 'block';
+                document.getElementsByTagName('form')[j].submit();
+            }
+        }
+</script>
+
+{% endblock %}

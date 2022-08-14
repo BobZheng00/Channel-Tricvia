@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+    <form action="" method="post">{% csrf_token %}
+        <select name="input1">
+            {% for nums in nums %}
+            <option value="{{ nums }}">{{ nums }}</option>
+            {% endfor %}
+        </select><br>
+        <select name="input2">
+            {% for categories in categories %}
+            <option value="{{ categories }}">{{ categories }}</option>
+            {% endfor %}
+        </select><br>
+        <input type="submit" value="Submit" />
+    </form>
+{% endblock %}
