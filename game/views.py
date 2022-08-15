@@ -43,11 +43,17 @@ class SingleGame:
     @staticmethod
     def single_game_view(request):
         questions = request.session['questions']
+        score = 0
         if request.method == 'POST':
             for i in range(len(questions)):
                 answer = request.POST.get(str(i))
-                print(answer)
+                if answer == questions[i]['correct_answer'].lower():
+                    score += 1
             request.session.pop('questions', None)
-            return redirect('/')
-        return render(request, 'single_game_page.html', {'questions': questions,
-                                                         'length': len(questions)})
+            request.session['result'] = score
+            return redirect('result')
+        return render(request, 'single_game_page.html', {'questions': questions, 'length': len(questions)})
+
+    @staticmethod
+    def single_game_result(request):
+        return render(request, 'single_game_result.html', {'result': request.session.pop('result', None)})
