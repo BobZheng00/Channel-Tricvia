@@ -1,17 +1,32 @@
 {% extends "base.html" %}
 
 {% block main_content %}
-    <form action="" method="post">{% csrf_token %}
+    <div class="row">
+    <div class="col-lg-6">
+        <h3>Quick Trivia</h3>
+
+        <p>Select the number and category of questions you would like to try to start a Quick Trivia Game! You have 30 seconds to answer each question</p>
+        <hr>
+    </div>
+
+    </div>
+    <div class="user_card">
+    <form action="" method="post" class="d-flex justify-content-center mt-3 login_container">{% csrf_token %}
+    <br>
+        <label style="color:white">Number of Questions</label><br>
         <select name="input1">
             {% for nums in nums %}
             <option value="{{ nums }}">{{ nums }}</option>
             {% endfor %}
-        </select><br>
+        </select><br><br>
+        <label style="color:white" >Select Category: </label>
         <select name="input2">
             {% for categories in categories %}
             <option value="{{ categories }}">{{ categories }}</option>
             {% endfor %}
-        </select><br>
+        </select><br><br>
         <input type="submit" value="Submit" />
+    <br><br>
     </form>
+    </div>
 {% endblock %}

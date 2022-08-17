@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import QuestionsSet
 import random
+from django.contrib.auth.forms import UserCreationForm
+from .forms import CreateUserForm
 from urlparams.redirect import param_redirect
 from django.utils.safestring import mark_safe
 import json
-from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
@@ -15,8 +16,21 @@ def home(request):
     return render(request, "home.html")
 
 
-def register(request):
-    return render(request, 'register.html')
+def register_page(request):
+    form = CreateUserForm()
+
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+    context = {'form': form}
+    return render(request, 'register.html', context)
+
+
+def login_page(request):
+    return render(request, 'login.html')
 
 
 class SingleGame:
@@ -57,3 +71,4 @@ class SingleGame:
     @staticmethod
     def single_game_result(request):
         return render(request, 'single_game_result.html', {'result': request.session.pop('result', None)})
+

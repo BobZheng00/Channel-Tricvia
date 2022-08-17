@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 
 {% block main_content %}
-
-<form action="" method="post" id="form">
+<div class="user_card">
+<form action="" method="post" id="form"><br>
     {% csrf_token %}
     {% for question in questions %}
         <div id='{{ question.index }}'>
-            <label>{{ question.question }}{{ question.index }}</label><br>
+            <label style="color:white">{{ question.question }}</label><br><br>
             <input type="text" name='{{ question.index }}' placeholder="Type your answer here"><br>
         </div>
     {% endfor %}
+    <br>
     <button type="button" onclick="clicked()">Next</button>
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit All" />
 </form>
+</div>
 
 <script>
         var timer;
