@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 import json
 
@@ -22,3 +23,13 @@ class QuestionsSet(models.Model):
             QuestionsSet.objects.create(type='question', category=str(question['category']),
                                         question=str(question['question']),
                                         correct_answer=str(question["correct answer"]), incorrect_answer=None)
+
+
+class QuickTriviaLeaderboard(models.Model):
+    player = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.IntegerField(default=0)
+    attempt = models.IntegerField(default=10)
+    category = models.CharField(max_length=100)
+    completed = models.DateTimeField(null=True, blank=True)
+
+
