@@ -62,7 +62,8 @@ class SingleGame:
         nums = [10, 20, 30, 40]
         categories = list(QuestionsSet.objects.all().values_list('category', flat=True).distinct())
         categories.append('Any Category')
-        user_request = {'nums': nums, 'categories': categories}
+        leader_set = SingleGame.load_leaderboard()
+        user_request = {'nums': nums, 'categories': categories, 'leader': leader_set}
         if request.method == 'POST':
             num = int(request.POST.get('input1'))
             category = request.POST.get('input2')
@@ -112,6 +113,11 @@ class SingleGame:
         elif not QuickTriviaLeaderboard.objects.filter(player_id=current_user.id).exists():
             QuickTriviaLeaderboard.objects.create(score=result, attempt=length, category=category,
                                                   completed=timezone.now(), player_id=current_user.id)
+        leader_set = SingleGame.load_leaderboard()
+        return render(request, 'single_game_result.html', {'leader': leader_set, 'result': result})
+
+    @staticmethod
+    def load_leaderboard():
         leader = QuickTriviaLeaderboard.objects.order_by('-score')[:15]
         leader_set = []
         index = 1
@@ -121,5 +127,5 @@ class SingleGame:
             dict_leader['rank'] = index
             index += 1
             leader_set.append(dict_leader)
-        return render(request, 'single_game_result.html', {'leader': leader_set, 'result': result})
+        return leader_set
 

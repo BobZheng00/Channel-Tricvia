@@ -29,4 +29,19 @@
     <br><br>
     </form>
     </div>
+    <hr>
+    <div class="row">
+    <div class="col-lg-6">
+        <h4>Leaderboard</h4>
+
+    </div>
+    <br>
+    <div class="container">
+        <table class="styled-table">
+            <tr><th>Rank#</th><th>Player</th><th>Attempt</th><th>Score</th><th>Date</th></tr>
+            {% for leader in leader %}
+                <tr><th>{{ leader.rank }}</th><th>{{ leader.player }}</th><th>{{ leader.attempt }}</th><th>{{ leader.score }}</th><th>{{ leader.completed }}</th></tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
